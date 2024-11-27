@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spotify Callback</title>
+</head>
+<body>
+  <script type="module">
+    import { SpotifyCtrl } from './controller/SpotifyCtrl.js';
+
+    // Extract the token and handle it
+    const hash = window.location.hash.substring(1);
+    const params = new URLSearchParams(hash);
+    const accessToken = params.get('access_token');
+
+    if (accessToken) {
+      SpotifyCtrl.setToken(accessToken);
+      window.location.href = 'https://marcelo1988-snhu.github.io/player/'; // Redirect to main page
+    } else {
+      console.error('No access token found in URL');
+    }
+  </script>
+</body>
+</html>
