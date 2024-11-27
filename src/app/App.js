@@ -1,5 +1,5 @@
 import { CuppaComponent, html } from '../cuppa/cuppa.component.min.js';
-import { SpotifyCtrl } from './app/controller/SpotifyCtrl.js';
+import { SpotifyCtrl } from './controller/SpotifyCtrl.js';
 import { CuppaStorage } from '../cuppa/cuppa.storage.min.js';
 
 class App extends CuppaComponent {
