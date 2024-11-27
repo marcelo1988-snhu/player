@@ -10,7 +10,7 @@ class App extends CuppaComponent {
   ];
   
   clientId = '8163d938b9f5451dadd6ba846dc70a0b';
-  redirectUrl = 'https://marcelo1988-snhu.github.io/player/callback';
+  redirectUrl = 'https://marcelo1988-snhu.github.io/player';
 
   mounted() {
     const token = CuppaStorage.getDataSync({ name: 'TOKEN', store: CuppaStorage.LOCAL });
