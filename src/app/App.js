@@ -13,12 +13,30 @@ class App extends CuppaComponent {
   redirectUrl = 'https://marcelo1988-snhu.github.io/player/';
 
   mounted() {
-    const token = CuppaStorage.getDataSync({ name: 'TOKEN', store: CuppaStorage.LOCAL });
-    if (!token) {
-      this.login();
-    } else {
-      SpotifyCtrl.setToken(token);
+    // Check if the access_token is available in the URL hash
+    const hash = window.location.hash.substring(1); // Extract the hash part of the URL
+    const params = new URLSearchParams(hash);
+    const accessToken = params.get('access_token');
+
+    if (accessToken) {
+      // If an access token is found in the URL, store it
+      SpotifyCtrl.setToken(accessToken);
+      CuppaStorage.setDataSync({ name: 'TOKEN', data: accessToken, store: CuppaStorage.LOCAL });
+      
+      // Clean up the URL by removing the hash
+      window.location.hash = '';
+
+      // Initialize the Spotify player
       SpotifyCtrl.loadPlayer();
+    } else {
+      // If no token in the URL, check if it's already stored in CuppaStorage
+      const token = CuppaStorage.getDataSync({ name: 'TOKEN', store: CuppaStorage.LOCAL });
+      if (!token) {
+        this.login();
+      } else {
+        SpotifyCtrl.setToken(token);
+        SpotifyCtrl.loadPlayer();
+      }
     }
   }
 
@@ -60,3 +78,4 @@ class App extends CuppaComponent {
 }
 
 customElements.define('app-comp', App);
+
